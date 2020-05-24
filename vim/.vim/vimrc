@@ -1,34 +1,41 @@
 call plug#begin('~/.vim/plugged')
 " colorschemas
 Plug 'morhetz/gruvbox'
+Plug 'w0ng/vim-hybrid'
+Plug 'altercation/vim-colors-solarized'
+
+" webdev
+Plug 'mattn/emmet-vim'
+Plug 'prettier/vim-prettier', {
+  \'do': 'yarn install',
+  \'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-github-dashboard'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'prettier/vim-prettier'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'jiangmiao/auto-pairs'
 Plug '1c-syntax/vim-language-1c-bsl'
 call plug#end()
 
 set guifont=Hack
-colorscheme gruvbox
+colorscheme solarized
 set background=dark
 set encoding=utf-8
 
 if has("syntax")
   syntax on
 endif
-
+set number relativenumber
 set autowrite " Automatically :write before running commands
 set modelines=0   " Disable modelines as a security precaution
 set nomodeline
@@ -45,6 +52,13 @@ set expandtab
 set autoindent
 set smartindent
 
+" prettier
+let g:prettier#exec_cmd_async = 1
+let g:prettier#autoformat = 1
+" emmet
+let g:user_emmet_install_global = 0
+let g:user_emmet_leader_key=','
+autocmd FileType html,css EmmetInstall
 
 " Softtabs, 2 spaces
 set tabstop=2

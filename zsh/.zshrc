@@ -85,6 +85,7 @@ plugins=(
 	archlinux
 	systemd
 	python
+  fzf
 )
 
 
