@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/.poetry/bin:$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.gem/ruby/2.7.0/bin:$HOME/.poetry/bin:$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 ZSH=~/.oh-my-zsh/
@@ -77,15 +77,19 @@ HIST_STAMPS="dd-mm-yyyy"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  emacs
   dircycle
   git
-	pyenv
+	python
+  pyenv
+  poetry
 	pip
 	pep8
 	archlinux
 	systemd
-	python
   fzf
+  zsh-autosuggestions
+  zsh-syntax-highlighting
 )
 
 
@@ -121,6 +125,7 @@ fi
 # Aliases
 alias zshconfig="\$EDITOR ~/.zshrc"
 alias rm="rm -I"
+alias vim="nvim"
 alias pkgclean="pikaur -R $(pikaur -Qqdt)"
 
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
@@ -134,3 +139,5 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+fortune | cowsay
