@@ -11,33 +11,75 @@ Plug 'morhetz/gruvbox'
 Plug 'w0ng/vim-hybrid'
 Plug 'altercation/vim-colors-solarized'
 
-" webdev
-Plug 'mattn/emmet-vim'
-Plug 'prettier/vim-prettier', {
-  \'do': 'yarn install',
-  \'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
-
+" UI
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'majutsushi/tagbar'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+
+" main
+Plug 'djoshea/vim-autoread' "2015
+"Plug 'chrisbra/vim-autoread' "async
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdcommenter'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
+
+" search
+Plug 'rking/ag.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+"""""" DEV
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-jest'
+Plug 'neoclide/coc-html'
+Plug 'neoclide/coc-json'
+Plug 'neoclide/coc-css'
+Plug 'neoclide/coc-eslint'
+Plug 'neoclide/coc-tslint'
+Plug 'neoclide/coc-stylelint'
+Plug 'neoclide/coc-vetur'
+Plug 'neoclide/coc-python'
+Plug 'neoclide/coc-java'
+Plug 'sheerun/vim-polyglot'
+Plug 'pangloss/vim-javascript'
+Plug 'evanleck/vim-svelte'
+Plug 'vim-python/python-syntax'
+Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'aliev/vim-compiler-python'
+Plug 'mboughaba/i3config.vim'
+Plug 'wgwoods/vim-systemd-syntax'
+Plug 'zinit-zsh/zinit-vim-syntax'
+Plug '1c-syntax/vim-language-1c-bsl'
+
+" webdev
+Plug 'mattn/emmet-vim'
+Plug 'dense-analysis/ale'
+"Plug 'prettier/vim-prettier', {
+  "\'do': 'yarn install',
+  "\'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'posva/vim-vue'
+
+" python
+Plug 'kiteco/vim-plugin'
+
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-github-dashboard'
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
 "Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'tpope/vim-surround'
-Plug 'rking/ag.vim'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'scrooloose/nerdcommenter'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'jiangmiao/auto-pairs'
-Plug '1c-syntax/vim-language-1c-bsl'
 call plug#end()
 
 set guifont=Hack
-colorscheme solarized
+"colorscheme solarized
+colorscheme gruvbox
 set background=dark
 set encoding=utf-8
+
+"""""" mappings
+:set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+let mapleader = " "
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -51,19 +93,19 @@ function! s:check_back_space() abort
 endfunction
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <silent><expr> <C-space> coc#refresh()
 
 if has("syntax")
   syntax on
 endif
 set number relativenumber
+"set AutoRead "Autoread file with async plugin
+set autoread
 set autowrite " Automatically :write before running commands
 set modelines=0   " Disable modelines as a security precaution
 set nomodeline
 set ruler         " show the cursor position all the time
 set showcmd       " display incomplete commands
-set incsearch     " do incremental searching
-set hlsearch
 set laststatus=2  " Always display the status line
 set mouse=a
 set showmatch
@@ -80,6 +122,9 @@ let g:prettier#autoformat = 1
 let g:user_emmet_install_global = 0
 let g:user_emmet_leader_key=','
 autocmd FileType html,css EmmetInstall
+" ale check syntax
+" Fix files with prettier, and then ESLint.
+let b:ale_fixers = ['prettier', 'eslint']
 
 " Softtabs, 2 spaces
 set tabstop=2
@@ -89,10 +134,6 @@ set shiftround
 set expandtab
 set smarttab
 
-" Powerline status
-"let g:powerline_pycmd="python3.8"
-"set rtp+=/usr/lib/python3.8/site-packages/powerline/bindings/vim
-
 " coc.nvim
 set nobackup
 set nowritebackup
@@ -101,10 +142,17 @@ set updatetime=300
 set shortmess+=c
 set signcolumn=yes
 
+" python
+let g:kite_supported_languages = ['python', 'javascript', 'go']
+
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
 
+" search
+set incsearch
+set hlsearch
+nnoremap <leader><space> :nohlsearch<CR>
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
   " Use Ag over Grep
@@ -119,12 +167,13 @@ if executable('ag')
   endif
 endif
 
-:set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+" airline
+let g:airline_powerline_fonts = 1
+let g:airline_theme='ravenpower'
+let g:airline#extensions#tabline#enabled = 1
 
-"""""" mappings
-let mapleader = " "
+nmap <F8> :TagbarToggle<CR>
 map <C-n> :NERDTreeToggle<CR>
-"map <C-l> :noh<CR>
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -136,6 +185,10 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
+
+" Move lines in visual
+vnoremap J :m '>+1<CR>gv=gv'
+vnoremap K :m '<-2<CR>gv=gv'
 
 " Map Ctrl + p to open fuzzy find (FZF)
 nnoremap <C-p> :Files<cr>
