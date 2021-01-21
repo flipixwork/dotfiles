@@ -128,19 +128,7 @@ name = "ctrlp"
   name = "lang#java"
 
 [[custom_plugins]]
-  # name = 'pearofducks/ansible-vim'
-  # name = 'evanleck/vim-svelte'
-  # name = 'lambdalisue/vim-pyenv'
-  # name =  "leafOfTree/vim-svelte-plugin"
-  # repo = 'codechips/coc-svelte'
-  # on_cmd = [ 'npm install' ]
   name = 'codechips/coc-svelte'
-  # repo =  "norcalli/nvim-colorizer.lua"
-  # on_cmd = ["ColorizerToggle"]
   repo =  "rrethy/vim-hexokinase"
   on_cmd = ["make hexokinase"]
-  # repo = "lilydjwg/colorizer"
-  # on_cmd = ["ColorHighlight", "ColorToggle"]
-  # merged = false
-  # repo = 'glacambre/firenvim'
-  # on_cmd = "firenvim#install(0)"
+
