@@ -6,3 +6,4 @@
 - [zsh](https://www.zsh.org/)
 - [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh/)
 - [powerlevel10k](https://github.com/romkatv/powerlevel10k)
+- [fish](https://fishshell.com/)
